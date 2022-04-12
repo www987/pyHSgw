@@ -12,10 +12,10 @@ from hsgw import HomeserverConnection
 
 def finder(key=None, name='.*', refresh=False):
     conn = HomeserverConnection(key=key, refresh_cobjects=refresh)
-    print "Connection successful."
+    print ("Connection successful.")
     for addr in conn.findAddrByName(name):
-        print addr, conn.getNameByAddr(addr)
-    print "Done."
+        print (addr, conn.getNameByAddr(addr))
+    print ("Done.")
 
 def main():
     plac.call(finder)

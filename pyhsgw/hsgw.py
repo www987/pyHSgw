@@ -48,11 +48,11 @@ class HomeserverConnection(object):
             except:
                pass
  
-        print "HSConn(", self.ip, ", ", self.port, ", ", self.http_port, ", ", self.key, ")"
+        print ("HSConn(", self.ip, ", ", self.port, ", ", self.http_port, ", ", self.key, ")")
 
         # local XML caching
         if refresh_cobjects or not os.path.exists(xml_local):
-            print "retrieving c.o.s from homeserver..."
+            print ("retrieving c.o.s from homeserver...")
             url = hs_cobjects_url.format(self.ip, self.http_port)
             result = requests.get(url)
             if result.status_code != 200:
@@ -60,16 +60,17 @@ class HomeserverConnection(object):
             xml = result.text.encode('utf-8')
             with open(xml_local, 'wb') as fp:
                 fp.write(xml)
+                
         else:
-            print "Reading c.o.s from local cache..."
+            print ("Reading c.o.s from local cache...")
             with open(xml_local, 'rb') as fp:
                 xml = fp.read()
 
-        print "Requesting objects."        
+        print ("Requesting objects."  )      
         self.parseXMLDescriptions(xml)
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((self.ip, self.port))
-        self.sock.send(str(self.key) + '\0')
+        self.sock.send(str(self.key).encode() + b'\0')
         self.readFromServer()
 
     def setValue(self, address, value):
@@ -79,10 +80,10 @@ class HomeserverConnection(object):
 #            print "Sending to CO " + str(self.encodeCOAddr(address)) + " [" + str(address) + "]"
             telegram = "1|{}|{}\0".format(self.encodeCOAddr(address), value)
 #            print "Sending telegram:", telegram
-            self.sock.send(telegram)
+            self.sock.send(telegram.encode())
         except:
-            print 'Could not set value of ' + address
-            print sys.exc_info()[0]
+            print ('Could not set value of ' + str(address))
+            print (sys.exc_info()[0])
             raise
         return self.readFromServer()
 
@@ -95,8 +96,8 @@ class HomeserverConnection(object):
     def getValueByName(self, name):
         return self.co_by_id[self.id_by_name[name]]['value']
 
-    def getAddrByName(self, name):
-        yield self.co_by_name.get(name)
+    #def getAddrByName(self, name):
+    #    yield self.co_by_name.get(name)
 
     def findAddrByName(self, query):
         matches = list()
@@ -116,19 +117,19 @@ class HomeserverConnection(object):
         #   '2|<CO address as int>|<value as text>'
         # They are separated by 0x0 values. The last field is empty.
         count = 0
-        for f in data.split('\0')[:-1]:
-            records = f.split('|')
+        for f in data.split(b'\0')[:-1]:
+            records = f.split(b'|')
             address = self.decodeCOAddr(records[1])
             value = records[2]
             count += 1
             id = self.id_by_addr.get(address)
             if not id:
-                print "Could not find id for address",address 
+                print ("Could not find id for address",address )
                 pass
             else:
                 self.co_by_id[id]['value'] = value
                 self.value[address] = value
-        print "Read values for", count, "COs."
+        print("Read values for", count, "COs.")
         f = open("debug.ocs.log", "w")
         for i in self.value.keys():
             f.write("{} = {} ({})\n".format(str(i), str(self.value.get(i)), self.co_by_id[self.id_by_addr[i]]['name'].encode('utf-8')))
@@ -153,8 +154,8 @@ class HomeserverConnection(object):
     # Decode the comm object address from an (int) string
     def decodeCOAddr(self, s):
         add = int(s)
-        x = add / 2048
-        y = (add - 2048 * x) / 256
+        x = int(add / 2048)
+        y = int((add - 2048 * x) / 256)
         z = add % 256
         return '{}/{}/{}'.format(x, y, z)
 

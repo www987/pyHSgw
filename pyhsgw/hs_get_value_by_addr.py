@@ -12,7 +12,7 @@ from hsgw import HomeserverConnection
 
 def get_val(addr, key=None, refresh=False):
     conn = HomeserverConnection(key=key, refresh_cobjects=refresh)
-    print conn.getValueByAddr(addr)
+    print (conn.getValueByAddr(addr))
     conn.close()
 
 def main():
