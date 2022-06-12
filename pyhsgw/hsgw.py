@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import re
 import sys
@@ -13,7 +11,7 @@ from os import path
 # The default IP address, port and HTTP port of the
 # Gira HS/FS. Deviating setups can be specified upon
 # instantiating the HomeserverConnection.
-default_ip = '192.168.0.11'
+default_ip = '212.51.218.26'
 default_port = 7003
 default_http_port = 80
 default_key_filename = ".hs-key"

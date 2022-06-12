@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import hsgw
 from sys import argv, exit
 
