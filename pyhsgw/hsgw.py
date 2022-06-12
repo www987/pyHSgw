@@ -14,7 +14,6 @@ from os import path
 default_ip = '212.51.218.26'
 default_port = 7003
 default_http_port = 80
-default_key_filename = ".hs-key"
 
 # The location of the HS cobjects xml file. This
 # needs to be enabled in the Expert (CO Gateway).
@@ -27,7 +26,7 @@ buffer_size = 2048 ** 2
 class HomeserverConnection(object):
 
     def __init__(self, ip_address = default_ip, port = default_port, 
-                 http_port = default_http_port, key = '', refresh_cobjects = False):
+                 http_port = default_http_port, key = '26052022', refresh_cobjects = False):
 
         self.ip = ip_address
         self.port = port

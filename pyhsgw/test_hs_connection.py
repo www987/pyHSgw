@@ -2,6 +2,8 @@ import sys
 from hsgw import HomeserverConnection
 
 conn = HomeserverConnection()
-print("Sun - lux: ", conn.getValueByAddr("4/4/0"))
-conn.setValue("0/0/1","0.0")
+value = conn.getValueByAddr("4/0/1")
+print(value, value.decode("utf-8"))
+#conn.setValue("4/0/1","1.0")
+
 
