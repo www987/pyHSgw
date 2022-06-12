@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import hsgw
 import re
 from sys import argv, exit

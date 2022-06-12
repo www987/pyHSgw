@@ -1,0 +1,42 @@
+KAE_216_2014121501
+Screen.UpDownScreen.6/0/0	scren_updown_toggle	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/0	downlights_onof	EIS 1 'Switching' (1 Bit)	Low	0/1/7 0/1/8 0/1/9 0/1/10 0/1/11
+Lighting.Downlights.0/1/1	downlights_dimming	EIS 2 'Dimming - control' (4 Bit)	Low	0/1/6
+Lighting.Downlights.0/1/2	downlights_2c_pb1	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/3	downlights_2c_pb2	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/4	downlights_2c_pb3	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/5	downlights_2c_pb4	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/6	Dimmer	EIS 2 'Dimming - control' (4 Bit)	Low	
+Lighting.Downlights.0/1/7	downlights_onoff_1	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/8	downlights_onoff_2	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/9	downlights_onoff_3	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/10	downlights_onoff_4	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.Downlights.0/1/11	downlights_all_onoff	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.fluorescent lamps.0/0/1	OnOffWithDelay	EIS 1 'Switching' (1 Bit)	Low	0/0/3 0/0/4 0/0/5 0/0/6 0/0/7 0/1/2 0/1/3 0/1/4 0/1/5
+Lighting.fluorescent lamps.0/0/4	OnOff_2nd_sw_o2	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.fluorescent lamps.0/0/5	OnOff_2nd_sw_o3	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.fluorescent lamps.0/0/6	OnOff_2nd_sw_o4	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.fluorescent lamps.0/0/7	OnOff_2nd_sw_all	EIS 1 'Switching' (1 Bit)	Low	
+Lighting.fluorescent lamps.0/0/3	OnOff_2nd_sw_o1	EIS 1 'Switching' (1 Bit)	Low	
+Windows.AllWindows.1/0/0	AllWindowsLong	EIS 1 'Switching' (1 Bit)	Low	1/1/0 1/1/1
+Windows.AllWindows.1/0/1	AllWindowsMake	EIS 1 'Switching' (1 Bit)	Low	
+Windows.contactrons.1/4/0	open_close_window_rr	EIS 1 'Switching' (1 Bit)	Low	
+Windows.contactrons.1/4/1	open_close_window_rl	EIS 1 'Switching' (1 Bit)	Low	
+Windows.contactrons.1/4/2	open_close_window_lr	EIS 1 'Switching' (1 Bit)	Low	
+Windows.contactrons.1/4/3	open_close_window_ll	EIS 1 'Switching' (1 Bit)	Low	
+Windows.Windows_separate.1/1/0	Window_right_oc	EIS 1 'Switching' (1 Bit)	Low	
+Windows.Windows_separate.1/1/1	Window_left_oc	EIS 1 'Switching' (1 Bit)	Low	
+Windows.Shutters.1/2/0	Shutters_R	EIS 1 'Switching' (1 Bit)	Low	
+Windows.Shutters.1/2/1	Shutters_L	EIS 1 'Switching' (1 Bit)	Low	
+Temperature.AllValves.2/0/1	TemperatureSetpointP216	Uncertain (2 Byte)	Low	
+Temperature.AllValves.2/0/2	TemperatureValueP216	Uncertain (2 Byte)	Low	
+Temperature.AllValves.2/0/0	OnOffTemperature	EIS 1 'Switching' (1 Bit)	Low	
+Temperature.InternalTemperature.2/2/0	InternalTemperatureP216	Uncertain (2 Byte)	Low	
+Door.contactrons.3/0/0	open_close_P216	EIS 1 'Switching' (1 Bit)	Low	
+Door.contactrons.3/0/1	openc_closeP217	EIS 1 'Switching' (1 Bit)	Low	
+Weather.Wind.4/0/0	Wind.speed	EIS 1 'Switching' (1 Bit)	Low	
+Weather.Wind.4/0/2	Wind.NoWindSignal	EIS 1 'Switching' (1 Bit)	Low	
+Weather.Wind.4/0/1	Wind.WindSensorUnchanged	EIS 1 'Switching' (1 Bit)	Low	
+Weather.Temperature.4/1/0	External Temperature	Uncertain (2 Byte)	Low	
+Weather.Dawn Sensor.4/2/0	Dawn Sensor	Uncertain (2 Byte)	Low	
+Weather.Light sensor.4/4/0	Light	Uncertain (2 Byte)	Low	
