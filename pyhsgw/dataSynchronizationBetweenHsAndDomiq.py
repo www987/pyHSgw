@@ -6,6 +6,8 @@ import pathlib
 import time
 from time import sleep
 from turtle import delay
+
+from pyparsing import line
 from hsgw import HomeserverConnection
 
 #conn = HomeserverConnection()
@@ -26,19 +28,17 @@ pathHS = pathlib.Path.cwd() / "fHSParameters.txt"
 pathDomiq = pathlib.Path.cwd() / "fCheckChangeDomiq.txt"
 variables = "var which contains domiq properties"
 list_of_items = "list which collects all properties from domiq"
-list_of_items_only_HS = []
+list_of_items_only_Domiq_Changed = []
 domiqValueIndex = "list which collects only HS properties from domiq"
 index = "created to store the domiq line index"
 indexProblem = "created to store index if they are more searches"
 
-# That function change domiq format (VAR.) to HS format
+# That function change domiq format (VAR.) to HS format and takes current value
 def changeToHsFormatAndCompare(domiqPresentPosition, domiqArchivePosition):
     domiqPresentPosition = domiqPresentPosition[4:].split("=")
-    print(domiqPresentPosition[1], domiqArchivePosition[1], type(domiqPresentPosition[1]), type(domiqArchivePosition[1]), domiqPresentPosition[1] != domiqArchivePosition[1])
     if domiqPresentPosition[1] != domiqArchivePosition[1].rstrip("\n"):
-        return str(domiqPresentPosition[0]+"    " + domiqPresentPosition[1] + " 1")
-    else:
-        return str(domiqPresentPosition[0]+"    " + domiqPresentPosition[1] + "    0")
+        list_of_items_only_Domiq_Changed.append(str(domiqPresentPosition[0]+"\t" + domiqPresentPosition[1])) # SEE THIS
+        
 
 while 1:
     """with open(pathHS, "r") as fileHs:
@@ -74,7 +74,7 @@ while 1:
             session.write(b"?\r\n")
             variables =session.read_until(b"<",timeout=7).decode("utf-8")
             list_of_items = []
-            list_of_items_only_HS = []
+            list_of_items_only_Domiq_Changed = []
             for l,item in enumerate(variables.splitlines()):
                 list_of_items.append(item)
                 print(l, item)
@@ -83,14 +83,35 @@ while 1:
                 l_line = f_domiq[i].split("\t")
                 index = [l for l,s in enumerate(list_of_items) if l_line[0] in s]
                 if len(index) == 1:
-                    list_of_items_only_HS.append(changeToHsFormatAndCompare(list_of_items[index[0]], l_line))
-                    
+                    changeToHsFormatAndCompare(list_of_items[index[0]], l_line)
                 if len(index) > 1:
                     for k in index:
                         if list_of_items[k].startswith("VAR."+l_line[0]+"="):
-                            list_of_items_only_HS.append(changeToHsFormatAndCompare(list_of_items[k], l_line))
+                            changeToHsFormatAndCompare(list_of_items[k], l_line)
                 i+=1
-            print(list_of_items_only_HS)
+            print(list_of_items_only_Domiq_Changed)
+        i = 0
+        with open(pathHS, "r") as fileHs:
+            f_hs = fileHs.readlines()
+            linesAmount = len(f_hs)
+            presentDate = datetime.datetime.now()
+            while i<linesAmount:
+                time.sleep(0.2)
+                l_line = f_hs[i].split("\t")
+                if any(l_line[1] in elem for elem in list_of_items_only_Domiq_Changed):
+                      index = [l for l,s in enumerate(list_of_items_only_Domiq_Changed) if s.startswith(l_line[1] + "\t")]
+                      valuePlaceholder = list_of_items_only_Domiq_Changed[index[0]].split("\t")
+                      l_line[2] = valuePlaceholder[1]
+                      l_line[4] = presentDate.strftime("%Y:%m:%d %H:%M:%S")
+                      l_line[5] = 0
+                      l_line[6] = 1
+                      f_hs[i] = "\t".join(str(item).rstrip("\t") for item in l_line)
+                else:
+                    if l_line[5] == "1":
+                        session.write(bytes("VAR."+l_line[1]+"="+l_line[2]+"\r\n", encoding='ascii'))
+                        l_line[5] = "0"
+                        f_hs[i] = "\t".join(str(item) for item in l_line)
+                i+=1
                 
     break
         
