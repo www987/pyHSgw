@@ -12,8 +12,8 @@ from hsgw import HomeserverConnection
 
 
 #connection Variables Domiq
-host = "212.51.218.27"
-port = 4224
+host = "INSERT YOUR IP"
+port = 1000
 timeout = 100
 
 #Variables used in program with description
